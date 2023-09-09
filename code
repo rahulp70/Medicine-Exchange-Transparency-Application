@@ -1,0 +1,177 @@
+from IPython.display import display
+import qrcode
+import datetime
+
+# Define login details for 3 users
+users = {
+    'hospital': {'password': 'hospital123'},
+    'patient': {'password': 'patient123'},
+    'pharmacy': {'password': 'pharmacy123'}
+}
+
+patients = []
+
+# Function to generate QR code with patient details
+def generate_qr_code(patient):
+    # Create a dictionary with patient details (excluding phone number)
+    patient_data = {
+        'name': patient['name'],
+        'age': patient['age'],
+        'sex': patient['sex'],  
+        'd_name' : patient['d_name'],
+        'medicines': patient['medicines']
+    }
+    
+    # Create a QR code with the patient data
+    qr = qrcode.QRCode(version=1, box_size=10, border=5)
+    qr.add_data(patient_data)
+    qr.make(fit=True)
+    qr_img = qr.make_image(fill_color="black", back_color="white")
+    
+    # Show the QR code image in the console
+    display(qr_img)
+    
+    print(f"QR code generated successfully for patient: {patient['name']}")
+    
+# Define user functions
+def hospital():
+    while True:
+        name = input("Enter patient's name: ")
+        age = input("Enter patient age: ")
+        sex = input("Enter patient sex: ")
+        phone = input("Enter patient phone number: ")
+        d_name = input("Enter Disease name: ")
+        medicines = []
+        while True:
+            serial = input("Enter medicine serial number: ")
+            med_name = input("Enter medicine name: ")
+            quantity = input("Enter medicine quantity: ")
+            duration = input("Enter medicine duration: ")
+            medicines.append([serial, med_name, quantity, duration])
+            
+            choice = input("Do you want to add another medicine? (Y/N): ")
+            if choice.lower() != 'y':
+                break
+        patients.append({'name': name, 'age': age, 'sex': sex, 'phone': phone,'d_name': d_name, 'medicines': medicines})
+        patient = {
+                'name': name,
+                'age': age,
+                'sex': sex,
+                'phone': phone,
+                'd_name' : d_name,
+                'medicines': medicines
+            }
+        generate_qr_code(patient)
+        choice = input("Do you want to add details of another patient? (Y/N): ")
+        if choice.lower() != 'y':
+            break
+    print("Patient details saved successfully.")
+    run()
+
+def patient():
+    if not patients:
+        print("No patient details found.")
+        run()
+        return
+
+    print("List of patients:")
+    for i, patient in enumerate(patients):
+        print(f"{i+1}. {patient['name']}")
+
+    choice = int(input("Enter patient number to see details: "))
+    if choice < 1 or choice > len(patients):
+        print("Invalid patient number.")
+        run()
+        return
+
+    patient = patients[choice-1]
+    print(f"Name: {patient['name']}")
+    print(f"Age: {patient['age']}")
+    print(f"Sex: {patient['sex']}")
+    print("Medicines:")
+    for medicine in patient['medicines']:
+        print(f"Serial Number: {medicine[0]}, Name: {medicine[1]}, Quantity: {medicine[2]}, Duration: {medicine[3]}")
+    
+    
+
+    if 'medicines1' in patient:
+        print("New Medicines:")
+        for medicine1 in patient['medicines1']:
+            print(f"Name: {medicine1['name']}, Expiry Date: {medicine1['expiry_date']}, Quantity: {medicine1['quantity']}")
+
+    now = datetime.datetime.now()
+    print ("Date and time : ")
+    print (now.strftime("%Y-%m-%d %H:%M:%S"))        
+            
+    run()
+
+def pharmacy():
+    if not patients:
+        print("No patient details found.")
+        run()
+        return
+
+    print("List of patients:")
+    for i, patient in enumerate(patients):
+        print(f"{i+1}. {patient['name']}")
+
+    choice = int(input("Enter patient number to see details: "))
+    if choice < 1 or choice > len(patients):
+        print("Invalid patient number.")
+        run()
+        return
+
+    patient = patients[choice-1]
+    print(f"Name: {patient['name']}")
+    print(f"Age: {patient['age']}")
+    print(f"Sex: {patient['sex']}")
+    print("Medicines:")
+    for medicine in patient['medicines']:
+        print(f"Serial Number: {medicine[0]}, Name: {medicine[1]}, Quantity: {medicine[2]}, Duration: {medicine[3]}")
+    
+    medicines1 = []
+    now = datetime.datetime.now()
+    print (" Date and time : ")
+    print (now.strftime("%Y-%m-%d %H:%M:%S"))
+
+    while True:
+        med_name = input("Enter medicine name: ")
+        expiry_date = input("Enter medicine expiry date: ")
+        quantity = input("Enter medicine quantity: ")
+        medicines1.append({'name': med_name, 'expiry_date': expiry_date, 'quantity': quantity})
+        print(f"Medicine details entered: Name: {med_name}, Expiry Date: {expiry_date}, Quantity: {quantity}")
+        if 'medicines1' not in patient:
+            patient['medicines1'] = []
+        patient['medicines1'].append({'name': med_name, 'expiry_date': expiry_date, 'quantity': quantity})
+        
+        choice = input("Do you want to add another medicine? (Y/N): ")
+        if choice.lower() != 'y':
+            break
+    
+    print("Medicine details saved successfully.")
+    run()
+
+def run():
+    user_id = login()
+    if user_id == 'hospital':
+        hospital()
+    elif user_id == 'patient':
+        patient()
+    elif user_id == 'pharmacy':
+        pharmacy()
+
+def login():
+    while True:
+        user_id = input("Enter user ID: ")
+        password = input("Enter password: ")
+        if user_id in users and password == users[user_id]['password']:
+            print("Login successful.")
+            return user_id
+        else:
+            print("Invalid user ID or password. Please try again.")
+
+def main():
+    run()
+
+if __name__ == '__main__':
+    main()
