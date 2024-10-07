@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Details</title>
+    <style>
+        /* Set background for the entire body */
+body {
+  background-color: #f5f5f5;  /* Light gray background */
+  font-family: Arial, sans-serif;  /* Set a default font */
+  margin: 0;  /* Remove default body margin */
+  padding: 0;  /* Remove default body padding */
+}
+
+/* Style the header */
+header {
+  background-color: #3498db;  /* Blue background for header */
+  color: white;  /* White text for header */
+  padding: 20px;  /* Add some padding */
+  display: flex;  /* Allow elements to align horizontally */
+  justify-content: space-between;  /* Space elements evenly within header */
+  align-items: center;  /* Align elements vertically in the center */
+}
+
+header img {
+  width: 150px;  /* Set a width for the logo */
+  height: auto;  /* Maintain aspect ratio for the logo */
+}
+
+header a.logout-button {
+  color: white;  /* White text for logout button */
+  text-decoration: none;  /* Remove underline */
+  padding: 5px 10px;  /* Add some padding */
+  border: 1px solid white;  /* White border */
+  border-radius: 5px;  /* Rounded corners */
+}
+
+header a.logout-button:hover {
+  background-color: #2980b9;  /* Darker blue on hover */
+  color: #ddd;  /* Lighter text on hover */
+}
+
+/* Style the heading */
+h2 {
+  text-align: center;  /* Center the heading */
+  margin: 20px 0;  /* Add some margin above and below */
+  font-size: 1.5em;  /* Increase heading font size */
+}
+
+/* Style the form */
+form {
+  width: 600px;  /* Set a width for the form */
+  margin: 0 auto;  /* Center the form horizontally */
+  padding: 20px;  /* Add some padding */
+  border: 1px solid #ddd;  /* Add a light border */
+  border-radius: 5px;  /* Add rounded corners */
+}
+
+/* Style form labels */
+label {
+  display: block;  /* Make labels display on a new line */
+  margin-bottom: 5px;  /* Add some margin below labels */
+  font-weight: bold;  /* Make labels bold */
+}
+
+/* Style form inputs */
+input[type="text"] {
+  width: 100%;  /* Make inputs full width */
+  padding: 10px;  /* Add some padding */
+  border: 1px solid #ccc;  /* Add a light gray border */
+  border-radius: 3px;  /* Add rounded corners */
+  box-sizing: border-box;  /* Ensure padding doesn't affect width */
+}
+
+/* Style the submit button */
+input[type="submit"] {
+  background-color: #3498db;  /* Blue background for submit button */
+  color: white;  /* White text for submit button */
+  padding: 10px 20px;  /* Add some padding */
+  border: none;  /* Remove default button border */
+  border-radius: 5px;  /* Add rounded corners */
+  cursor: pointer;  /* Change cursor to pointer on hover */
+}
+
+/* Style the submit button hover effect */
+input[type="submit"]:hover {
+  background-color: #2980b9;  /* Darker blue on hover */
+}
+
+/* Style the table */
+table {
+  width: 100%;  /* Make table full width */
+  border-collapse: collapse;  /* Remove space between table cells */
+}
+
+/* Style table headers */
+table thead th {
+  padding: 10px;  /* Add padding to table headers */
+  text-align: left;  /* Left-align table headers */
+  border: 1px solid #ddd;  /* Add border to table headers */
+  background-color: #f1f1f1;  /* Light gray background for headers */
+}
+
+/* Style table body cells */
+table tbody td {
+  padding: 10px;  /* Add padding to table body cells */
+  border: 1px solid
+
+    </style>    
+</head>
+<body>
+    <header>
+      <h2>MEDTECH</h2>
+        <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+    </header>
+    <h2>Enter Hospital Details</h2>
+    <form action="{{ url_for('hospital_details', email=email) }}" method="POST">
+        {{ form.csrf_token }}
+        
+        <label for="email">Patient Email:</label>
+        {{ form.email() }}
+        <br>
+
+        <label for="disease_name">Disease Name:</label>
+        {{ form.disease_name() }}
+        <br>
+        
+        <table id="medicine_table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Name of Medicine</th>
+                    <th>Quantity</th>
+                    <th>Duration</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>{{ form.medicine_name() }}</td>
+                    <td>{{ form.quantity() }}</td>
+                    <td>{{ form.duration() }}</td>
+                    <!--<td><button type="button" onclick="addRow(this)">Add</button></td> -->
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    
+</body>
+</html>

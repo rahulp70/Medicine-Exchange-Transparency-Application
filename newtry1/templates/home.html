@@ -1,0 +1,90 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #0074D9;
+            color: #000000;
+            text-align: center;
+            padding: 40px 0;
+            margin : 10px;
+            text-color: #696969;
+            text-font: 30px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            font-size: 36px;
+            margin: 20px 0;
+        }
+
+        p {
+            color: #555;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #0074D9;
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+
+        footer {
+            background-color: #333;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            padding: 15px 0px;
+            
+        }
+        .main- container {
+            margin-top: 150px;
+        }
+
+    </style>    
+</head>
+<body>
+    <header>
+        <h2>MEDTECH</h2>
+        
+    </header>
+    <div class = "main-container">
+    <h1>Welcome to the Medical Data System</h1>
+    <p>Log in or register to access your account.</p>
+    <div class="btn-container" >
+    <a href="{{ url_for('login') }}" class="btn">Login</a> | <a href="{{ url_for('registration') }}"class="btn">Register</a>
+    </div>
+    </div>
+    <footer>
+        Made by Rahul with ❤️
+    </footer>
+</body>
+</html>
