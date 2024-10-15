@@ -231,6 +231,8 @@ def pharmacy_details(email):
 if __name__ == '__main__': 
     db.create_all() 
     app.run(debug=True) 
+
+#Ignore all changes
     
     
 # class PharmacyMedicineDetails(db.Model):
